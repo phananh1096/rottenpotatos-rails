@@ -7,13 +7,16 @@ class Movie < ActiveRecord::Base
     # if ratings_list is an array such as ['G', 'PG', 'R'], retrieve all
     #  movies with those ratings
     unless ratings_list.nil?
-      @all_ratings = Movie.where(rating: ratings_list) #Do search
-      @ratings_to_show = ratings_list
+      return(Movie.where(rating: ratings_list)) #Do search
     # if ratings_list is nil, retrieve ALL movies    
     else
-      @all_ratings = Movie.all
-      @ratings_to_show = []
+#       @ratings_to_show = []
+      return(Movie.all)
     end
   end
-
+  
+  def self.all_ratings()
+    #Get all ratings
+    Movie.uniq.pluck(:rating)
+  end
 end
