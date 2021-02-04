@@ -7,6 +7,14 @@ class MoviesController < ApplicationController
   end
 
   def index
+    #Checks if new landing to fetch session
+    if params[:sort].nil? and params[:ratings].nil? and (!session[:sort].nil? or !session[:ratings].nil?)
+      redirect_to(movies_path({:sort => session[:sort], :ratings => session[:ratings]} ))
+#       params[:sort] = session[:sort]
+#       params[:ratings] = session[:ratings]
+    end
+      
+    #Main control loop
     unless params[:sort].nil?
       if params[:sort] == "Title"
         @titleCSS = "hilite bg-warning"
@@ -28,9 +36,13 @@ class MoviesController < ApplicationController
         @ratings_to_show = params[:ratings].keys
       else
         @movies = Movie.with_ratings(nil)
-        @ratings_to_show = []
+        @ratings_to_show = Movie.all_ratings
       end
     end
+
+    #Store session variables
+    session[:sort] = params[:sort]
+    session[:ratings] = params[:ratings]
   end
 
   def new
