@@ -1,5 +1,7 @@
 # RottenPotatoes demo app: getting started
 
+Simple CRUD Database built with Ruby on Rails that mimics RottenTomatos.
+
 Test page at: https://quiet-mountain-38789.herokuapp.com/
 
 This app is associated with the free [online
